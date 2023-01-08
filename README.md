@@ -31,8 +31,10 @@ CMD [ "npm", "run", "start" ]
 - docker container ls -> list container
 - docker container stop id container -> stop container
 - docker container start id container -> start container
-- docker container rm id container -> hapus container
-- docker image rm id image -> hapus image
+- docker container rm id container -> hapus container dengan id tertentu
+- docker container rm $(docker container ls -q) -> hapus semua container
+- docker image rm id image -> hapus image dengan id tertentu
+- docker image rm $(docker image ls -q) -> hapus semua image
 - docker container prune -> untuk hapus container yang none:none
 - docker image prune -> untuk hapus image yang none:none
 
@@ -62,4 +64,29 @@ services:
     command: npm run start
 volumes:
   node_modules:
+```
+
+## contoh docker-compose frontend dan backend dalam 1 file
+
+```yml
+version: "3.8"
+services:
+  web:
+    build: ./frontend
+    ports:
+      - 3000:3000
+    environment:
+      DB_URL: mongodb://db/vidly
+  api:
+    build: ./backend
+    ports:
+      - 3001:3001
+  db:
+    image: mongo:4.0-xenial
+    ports:
+      - 27017:27017
+    volumes:
+      - vidly:/data/db
+volumes:
+  vidly:
 ```
