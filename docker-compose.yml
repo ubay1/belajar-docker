@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  app:
+    container_name: "belajar_docker_compose"
+    build: . # akan mencari dockerfile, dan akan membuat berdasarkan isi didalamnya,jika nama dockernya misal Dockerfile.dev, kita bisa berikan ./Dockerfile.dev
+    volumes:
+      - .:/app
+      - node_modules:/app/node_modules
+    ports:
+      - 3000:3000
+    environment:
+      - BASE_URL=https://ubay182.vercel.app
+    command: npm run start
+volumes:
+  node_modules:

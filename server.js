@@ -2,8 +2,9 @@ const express = require("express");
 
 const app = express();
 
+const BASE_URL = process.env.BASE_URL;
 app.get("/", (req, res) => {
-  res.send("Hello world\n");
+  res.send(`Hello world\n test env hmm = ${BASE_URL}`);
 });
 
 //Listen port
